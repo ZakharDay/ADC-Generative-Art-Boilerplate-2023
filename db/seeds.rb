@@ -1,6 +1,9 @@
 @prototypes_data = [
   {
     name: 'First module / First prototype'
+  },
+  {
+    name: 'First oscillator'
   }
 ]
 
