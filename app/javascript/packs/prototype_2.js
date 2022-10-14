@@ -1,7 +1,8 @@
+let container
 let audioCtx
 let oscillator
 
-function createOscillator() {
+function createNewOscillator() {
   // create web audio api context
   audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
@@ -12,6 +13,8 @@ function createOscillator() {
   oscillator.frequency.setValueAtTime(440, audioCtx.currentTime) // value in hertz
   oscillator.connect(audioCtx.destination)
   oscillator.start()
+
+  console.log(oscillator)
 }
 
 function changeOscillatorFrequency() {
@@ -19,8 +22,11 @@ function changeOscillatorFrequency() {
   oscillator.frequency.setValueAtTime(slider.value, audioCtx.currentTime) // value in hertz
 }
 
+function changeOscillatorType(type) {
+  oscillator.type = type
+}
+
 function createSlider() {
-  const container = document.getElementById('prototype_2')
   const slider = document.createElement('input')
   slider.type = 'range'
   slider.min = 0
@@ -34,16 +40,36 @@ function createSlider() {
   })
 }
 
+function createButton(text, callback, parameter) {
+  const button = document.createElement('div')
+  button.innerText = text
+  button.classList.add('button')
+  container.appendChild(button)
+
+  button.addEventListener('click', () => {
+    callback(parameter)
+  })
+}
+
+function createOscillatorTypeButtons() {
+  const types = ['sine', 'square', 'sawtooth', 'triangle']
+
+  types.forEach((type, i) => {
+    createButton(type, changeOscillatorType, type)
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('prototype_2')
   const frame = document.createElement('div')
   frame.innerText = 'Art Design & Coding Community'
   frame.classList.add('frame')
+
+  container = document.getElementById('prototype_2')
   container.appendChild(frame)
 
-  createSlider()
-
   frame.addEventListener('click', () => {
-    createOscillator()
+    createNewOscillator()
+    createSlider()
+    createOscillatorTypeButtons()
   })
 })

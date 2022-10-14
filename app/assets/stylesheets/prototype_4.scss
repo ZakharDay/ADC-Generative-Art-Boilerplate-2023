@@ -1,0 +1,28 @@
+.prototype_body_4 {
+  background: var(--medium-grey);
+}
+
+#prototype_4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  margin: auto;
+
+  .Container {
+    & > .SC_Button:first-child {
+      width: 560px;
+      height: 140px;
+      // margin: auto;
+      margin-bottom: 20px;
+      color: var(--black);
+      background: var(--acid-green);
+      font-family: ADC, Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 30px;
+      line-height: 150px;
+    }
+  }
+}

@@ -4,6 +4,21 @@
   },
   {
     name: 'First oscillator'
+  },
+  {
+    name: 'Oscillator with React components'
+  },
+  {
+    name: 'Tone.js basics'
+  },
+  {
+    name: 'Tone.js with UI'
+  },
+  {
+    name: 'Tone.js with UI, better change function'
+  },
+  {
+    name: 'Tone.js with UI, composition'
   }
 ]
 
