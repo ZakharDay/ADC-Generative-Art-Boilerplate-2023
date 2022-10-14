@@ -19,6 +19,9 @@
   },
   {
     name: 'Tone.js with UI, composition'
+  },
+  {
+    name: 'Tone.js with UI, sampler'
   }
 ]
 

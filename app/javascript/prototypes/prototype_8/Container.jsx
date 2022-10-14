@@ -3,8 +3,11 @@ import React, { Component } from 'react'
 
 import * as bassSettings from './tunes/bass.js'
 import * as melodySettings from './tunes/melody.js'
+import * as drumsSettings from './tunes/drums.js'
 
 import ToneSynth from './modules/ToneSynth.jsx'
+import Channel from './modules/Channel.jsx'
+
 import SC_Button from './components/SC_Button'
 import SC_Slider from './components/SC_Slider'
 
@@ -16,18 +19,21 @@ let melodySynth
 let melodyChorus
 let melodyPingPongDelay
 
+let samplerChannel
+
 export default class Container extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       bassSettings,
-      melodySettings
+      melodySettings,
+      drumsSettings
     }
   }
 
   handleStart = () => {
-    const { bassSettings, melodySettings } = this.state
+    const { bassSettings, melodySettings, drumsSettings } = this.state
 
     //
     //
@@ -75,6 +81,32 @@ export default class Container extends Component {
     melodyPart.loop = true
     //
     //
+    const sampler = new Tone.Sampler({
+      urls: {
+        A1: '00001-Linn-9000-BassDrumrum1.mp3',
+        A2: '00017-Linn-9000-Snare.mp3'
+      },
+      baseUrl: 'http://localhost:3000/samples/'
+      // onload: () => {
+      //   sampler.triggerAttackRelease(['A1', 'A2', 'A1', 'A2'], 0.5)
+      // }
+    })
+
+    samplerChannel = new Tone.Channel(drumsSettings.channel).toDestination()
+
+    sampler.chain(samplerChannel)
+
+    const drumsPart = new Tone.Part((time, note) => {
+      sampler.triggerAttackRelease(
+        note.noteName,
+        note.duration,
+        time,
+        note.velocity
+      )
+    }, drumsSettings.sequence.steps).start(0)
+
+    drumsPart.loopEnd = drumsSettings.sequence.duration
+    drumsPart.loop = true
 
     Tone.Transport.start()
   }
@@ -141,8 +173,24 @@ export default class Container extends Component {
     })
   }
 
+  handleDrumsValueChange = (property, value) => {
+    const { drumsSettings } = this.state
+
+    if (property === 'channelVolume') {
+      samplerChannel.volume.value = value
+      drumsSettings.channel.volume = value
+    } else if (property === 'channelMute') {
+      samplerChannel.mute = value
+      drumsSettings.channel.mute = value
+    }
+
+    this.setState({
+      drumsSettings
+    })
+  }
+
   render() {
-    const { bassSettings, melodySettings } = this.state
+    const { bassSettings, melodySettings, drumsSettings } = this.state
 
     return (
       <div className="Container">
@@ -179,6 +227,11 @@ export default class Container extends Component {
           value={bassSettings.chorus.wet}
           property="chorusWet"
           handleChange={this.handleValueChange}
+        />
+
+        <Channel
+          settings={drumsSettings}
+          handleValueChange={this.handleDrumsValueChange}
         />
       </div>
     )
