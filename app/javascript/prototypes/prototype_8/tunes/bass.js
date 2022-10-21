@@ -59,7 +59,8 @@ const sequence = {
       velocity: 1
     }
   ],
-  duration: '4m'
+  duration: '4m',
+  loop: true
 }
 
 export { synth, chorus, pingPongDelay, sequence }

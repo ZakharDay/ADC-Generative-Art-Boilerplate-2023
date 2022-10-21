@@ -56,7 +56,7 @@ export default class Container extends Component {
     }, bassSettings.sequence.steps).start(0)
 
     bassPart.loopEnd = bassSettings.sequence.duration
-    bassPart.loop = true
+    bassPart.loop = bassSettings.sequence.loop
     //
     //
     melodySynth = new Tone.Synth(melodySettings.synth)
@@ -78,7 +78,7 @@ export default class Container extends Component {
     }, melodySettings.sequence.steps).start(0)
 
     melodyPart.loopEnd = melodySettings.sequence.duration
-    melodyPart.loop = true
+    melodyPart.loop = melodySettings.sequence.loop
     //
     //
     const sampler = new Tone.Sampler({
@@ -106,7 +106,7 @@ export default class Container extends Component {
     }, drumsSettings.sequence.steps).start(0)
 
     drumsPart.loopEnd = drumsSettings.sequence.duration
-    drumsPart.loop = true
+    drumsPart.loop = drumsSettings.sequence.loop
 
     Tone.Transport.start()
   }

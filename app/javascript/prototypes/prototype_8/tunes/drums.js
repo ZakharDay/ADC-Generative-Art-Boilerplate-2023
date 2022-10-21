@@ -30,7 +30,8 @@ const sequence = {
       velocity: 0.2
     }
   ],
-  duration: '1m'
+  duration: '1m',
+  loop: true
 }
 
 export { channel, sequence }
