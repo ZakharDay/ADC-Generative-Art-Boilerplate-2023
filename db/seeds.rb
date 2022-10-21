@@ -22,6 +22,9 @@
   },
   {
     name: 'Tone.js with UI, sampler'
+  },
+  {
+    name: 'Knob in UI, Show/Hide Instrument, Show/Hide UI Parts'
   }
 ]
 
