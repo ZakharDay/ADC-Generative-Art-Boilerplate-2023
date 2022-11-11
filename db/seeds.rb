@@ -25,6 +25,9 @@
   },
   {
     name: 'Knob in UI, Show/Hide Instrument, Show/Hide UI Parts'
+  },
+  {
+    name: 'JS Events And Surface UI Element'
   }
 ]
 
