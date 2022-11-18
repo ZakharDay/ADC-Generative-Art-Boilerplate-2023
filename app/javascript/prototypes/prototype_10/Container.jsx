@@ -119,25 +119,58 @@ export default class Container extends Component {
     })
   }
 
+  handleValueChange = (instrumentName, property, value) => {
+    const { bassSettings, melodySettings } = this.state
+
+    let instrument
+    let settings
+
+    if (instrumentName === 'bass') {
+      instrument = bassSynth
+      settings = bassSettings
+    } else if (instrumentName === 'melody') {
+      instrument = melodySynth
+      settings = melodySettings
+    }
+
+    switch (property) {
+      case 'synthType':
+        instrument.oscillator.type = value
+        settings.synth.oscillator.type = value
+        break
+      case 'synthShowEnvelope':
+        settings.synthUI.envelopeShow = value
+        break
+      case 'synthEnvelopeAttack':
+        instrument.envelope.attack = value
+        settings.synth.envelope.attack = value
+        break
+      case 'synthEnvelopeDecay':
+        instrument.envelope.decay = value
+        settings.synth.envelope.decay = value
+        break
+      case 'synthEnvelopeSustain':
+        instrument.envelope.sustain = value
+        settings.synth.envelope.sustain = value
+        break
+      case 'synthEnvelopeRelease':
+        instrument.envelope.release = value
+        settings.synth.envelope.release = value
+        break
+    }
+
+    this.setState({
+      bassSettings,
+      melodySettings
+    })
+  }
+
   handleBassValueChange = (property, value) => {
     const { bassSettings } = this.state
 
-    if (property === 'synthType') {
-      bassSynth.oscillator.type = value
-      bassSettings.synth.oscillator.type = value
-    } else if (property === 'synthEnvelopeAttack') {
-      bassSynth.envelope.attack = value
-      bassSettings.synth.envelope.attack = value
-    } else if (property === 'synthEnvelopeDecay') {
-      bassSynth.envelope.decay = value
-      bassSettings.synth.envelope.decay = value
-    } else if (property === 'synthEnvelopeSustain') {
-      bassSynth.envelope.sustain = value
-      bassSettings.synth.envelope.sustain = value
-    } else if (property === 'synthEnvelopeRelease') {
-      bassSynth.envelope.release = value
-      bassSettings.synth.envelope.release = value
-    } else if (property === 'pingPongDelayWet') {
+    const instrument = bassSynth
+
+    if (property === 'pingPongDelayWet') {
       bassPingPongDelay.wet.value = value
       bassSettings.pingPongDelay.wet = value
     } else if (property === 'chorusWet') {
@@ -156,29 +189,15 @@ export default class Container extends Component {
   handleMelodyValueChange = (property, value) => {
     const { melodySettings } = this.state
 
-    if (property === 'synthType') {
-      melodySynth.oscillator.type = value
-      melodySettings.synth.oscillator.type = value
-    } else if (property === 'synthEnvelopeAttack') {
-      melodySynth.envelope.attack = value
-      melodySettings.synth.envelope.attack = value
-    } else if (property === 'synthEnvelopeDecay') {
-      melodySynth.envelope.decay = value
-      melodySettings.synth.envelope.decay = value
-    } else if (property === 'synthEnvelopeSustain') {
-      melodySynth.envelope.sustain = value
-      melodySettings.synth.envelope.sustain = value
-    } else if (property === 'synthEnvelopeRelease') {
-      melodySynth.envelope.release = value
-      melodySettings.synth.envelope.release = value
-    } else if (property === 'pingPongDelayWet') {
+    if (property === 'pingPongDelayWet') {
       melodyPingPongDelay.wet.value = value
       melodySettings.pingPongDelay.wet = value
-    } else if (property === 'delaySurface') {
-      melodyPingPongDelay.delayTime.value = value.x
-      melodySettings.pingPongDelay.delayTime = value.x
-      melodyPingPongDelay.maxDelayTime = value.y
-      melodySettings.pingPongDelay.maxDelayTime = value.y
+    } else if (property === 'melodyPingPongDelayDelayTime') {
+      melodyPingPongDelay.delayTime.value = value
+      melodySettings.pingPongDelay.delayTime = value
+    } else if (property === 'melodyPingPongDelayMaxDelayTime') {
+      melodyPingPongDelay.maxDelayTime = value
+      melodySettings.pingPongDelay.maxDelayTime = value
     } else if (property === 'chorusWet') {
       melodyChorus.wet.value = value
       melodySettings.chorus.wet = value
@@ -261,13 +280,15 @@ export default class Container extends Component {
     return (
       <div className="instrumentUI">
         <ToneSynth
+          instrumentName="bass"
           settings={bassSettings}
-          handleValueChange={this.handleBassValueChange}
+          handleValueChange={this.handleValueChange}
         />
 
         <ToneSynth
+          instrumentName="melody"
           settings={melodySettings}
-          handleValueChange={this.handleMelodyValueChange}
+          handleValueChange={this.handleValueChange}
         />
 
         <Surface
@@ -275,10 +296,12 @@ export default class Container extends Component {
           maxX="1"
           stepX="0.01"
           valueX={melodySettings.pingPongDelay.delayTime}
+          propertyX="melodyPingPongDelayDelayTime"
           minY="0"
           maxY="1"
           stepY="0.01"
           valueY={melodySettings.pingPongDelay.maxDelayTime}
+          propertyY="melodyPingPongDelayMaxDelayTime"
           handleValueChange={this.handleMelodyValueChange}
         />
 

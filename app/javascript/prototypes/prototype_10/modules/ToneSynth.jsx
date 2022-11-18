@@ -9,6 +9,11 @@ export default class ToneSynth extends Component {
     super(props)
   }
 
+  handleValueChange = (property, value) => {
+    const { instrumentName, handleValueChange } = this.props
+    handleValueChange(instrumentName, property, value)
+  }
+
   renderEnvelopeControls = () => {
     const { settings, handleValueChange } = this.props
 
@@ -21,7 +26,7 @@ export default class ToneSynth extends Component {
           step={0.01}
           value={settings.synth.envelope.attack}
           property="synthEnvelopeAttack"
-          handleChange={handleValueChange}
+          handleChange={this.handleValueChange}
         />
 
         <SC_Slider
@@ -31,7 +36,7 @@ export default class ToneSynth extends Component {
           step={0.01}
           value={settings.synth.envelope.decay}
           property="synthEnvelopeDecay"
-          handleChange={handleValueChange}
+          handleChange={this.handleValueChange}
         />
 
         <SC_Slider
@@ -41,7 +46,7 @@ export default class ToneSynth extends Component {
           step={0.01}
           value={settings.synth.envelope.sustain}
           property="synthEnvelopeSustain"
-          handleChange={handleValueChange}
+          handleChange={this.handleValueChange}
         />
 
         <SC_Slider
@@ -51,14 +56,14 @@ export default class ToneSynth extends Component {
           step={0.01}
           value={settings.synth.envelope.release}
           property="synthEnvelopeRelease"
-          handleChange={handleValueChange}
+          handleChange={this.handleValueChange}
         />
       </div>
     )
   }
 
   render() {
-    const { settings, handleValueChange } = this.props
+    const { settings } = this.props
     const options = ['sine', 'square', 'sawtooth', 'triangle']
 
     return (
@@ -68,7 +73,7 @@ export default class ToneSynth extends Component {
           options={options}
           value={settings.synth.oscillator.type}
           property="synthType"
-          handleChange={handleValueChange}
+          handleChange={this.handleValueChange}
         />
 
         <br />
@@ -77,7 +82,7 @@ export default class ToneSynth extends Component {
           text="Envelope"
           isOn={settings.synthUI.envelopeShow}
           handleClick={() =>
-            handleValueChange(
+            this.handleValueChange(
               'synthShowEnvelope',
               !settings.synthUI.envelopeShow
             )

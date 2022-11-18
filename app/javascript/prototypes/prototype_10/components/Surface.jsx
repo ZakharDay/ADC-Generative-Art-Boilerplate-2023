@@ -7,59 +7,94 @@ export default class Surface extends PureComponent {
     this.pointer = React.createRef()
 
     this.state = {
-      sizeX: 0,
-      sizeY: 0,
-      pointerSize: 0,
-      pointerRadius: 0
+      mouseDown: false
     }
   }
 
   componentDidMount() {
+    const { minX, maxX, stepX, minY, maxY, stepY } = this.props
+
     const surface = this.surface.current
     const surfaceRect = surface.getBoundingClientRect()
     const pointer = this.pointer.current
     const pointerRect = pointer.getBoundingClientRect()
 
+    const sizeX = surfaceRect.width
+    const rangeX = maxX - minX
+    const stepsX = rangeX / stepX
+
+    const sizeY = surfaceRect.height
+    const rangeY = maxY - minY
+    const stepsY = rangeY / stepY
+
     this.setState({
-      sizeX: surfaceRect.width,
-      sizeY: surfaceRect.height,
-      pointerSize: pointerRect.width,
-      pointerRadius: pointerRect.width / 2
+      pointerRadius: pointerRect.width / 2,
+      stepInPixelsX: sizeX / stepsX,
+      stepInPixelsY: sizeY / stepsY,
+      sizeX,
+      sizeY
     })
+
+    document.addEventListener('mouseup', this.handleMouseUp)
   }
 
   handleMouseDown = () => {
-    console.log('handleMouseDown')
-  }
-
-  handleMouseMove = (e) => {
-    const surface = this.surface.current
-    const surfaceRect = surface.getBoundingClientRect()
-    const x = e.clientX - surfaceRect.x
-    const y = e.clientY - surfaceRect.y
-    const value = { x, y }
-
-    this.props.handleValueChange('delaySurface', value)
-
-    console.log('handleMouseMove')
+    this.setState({
+      mouseDown: true
+    })
   }
 
   handleMouseUp = () => {
-    console.log('handleMouseUp')
+    this.setState({
+      mouseDown: false
+    })
+  }
+
+  handleMouseMove = (e) => {
+    const {
+      minX,
+      maxX,
+      stepX,
+      propertyX,
+      minY,
+      maxY,
+      stepY,
+      propertyY,
+      handleValueChange
+    } = this.props
+
+    const { mouseDown, stepInPixelsX, stepInPixelsY } = this.state
+
+    if (mouseDown) {
+      const surface = this.surface.current
+      const surfaceRect = surface.getBoundingClientRect()
+      const pointerX = e.clientX - surfaceRect.x
+      const pointerY = e.clientY - surfaceRect.y
+
+      let valueX = (pointerX / stepInPixelsX) * stepX
+      let valueY = (pointerY / stepInPixelsY) * stepY
+
+      if (valueX <= minX) {
+        valueX = minX
+      } else if (valueX >= maxX) {
+        valueX = maxX
+      }
+
+      if (valueY <= minY) {
+        valueY = minY
+      } else if (valueY >= maxY) {
+        valueY = maxY
+      }
+
+      handleValueChange(propertyX, valueX)
+      handleValueChange(propertyY, valueY)
+    }
   }
 
   render() {
-    const { minX, maxX, stepX, valueX, minY, maxY, stepY, valueY } = this.props
-    const { sizeX, sizeY, pointerSize, pointerRadius } = this.state
-
-    const rangeY = maxY - minY
-    const stepsY = rangeY / stepY
-    const stepInPixelsY = sizeY / stepsY
+    const { stepX, valueX, stepY, valueY } = this.props
+    const { pointerRadius, stepInPixelsX, stepInPixelsY } = this.state
     const pointerY = (valueY / stepY) * stepInPixelsY - pointerRadius
-
-    const rangeX = maxX - minX
-    const stepsX = rangeX / stepX
-    const stepInPixelsX = sizeX / stepsX
     const pointerX = (valueX / stepX) * stepInPixelsX - pointerRadius
 
     const pointerStyle = {
