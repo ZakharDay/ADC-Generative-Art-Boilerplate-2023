@@ -28,6 +28,9 @@
   },
   {
     name: 'JS Events And Surface UI Element'
+  },
+  {
+    name: 'Effects UI as components'
   }
 ]
 
