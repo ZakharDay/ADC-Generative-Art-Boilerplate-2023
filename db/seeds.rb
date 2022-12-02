@@ -31,6 +31,9 @@
   },
   {
     name: 'Effects UI as components'
+  },
+  {
+    name: 'New UI Elements And Interactions'
   }
 ]
 
