@@ -10,6 +10,7 @@ import PingPongDelayEffect from './modules/PingPongDelayEffect.jsx'
 import ChorusEffect from './modules/ChorusEffect.jsx'
 import Channel from './modules/Channel.jsx'
 
+import SC_ToggleButtonSet from './components/SC_ToggleButtonSet.jsx'
 import SC_Button from './components/SC_Button'
 import SC_Slider from './components/SC_Slider'
 import SC_Knob from './components/SC_Knob'
@@ -18,11 +19,14 @@ import Surface from './components/Surface'
 let bassSynth
 let bassChorus
 let bassPingPongDelay
+let bassPart
 
 let melodySynth
 let melodyChorus
 let melodyPingPongDelay
+let melodyPart
 
+let sampler
 let samplerChannel
 
 export default class Container extends Component {
@@ -35,6 +39,26 @@ export default class Container extends Component {
       bassSettings,
       melodySettings,
       drumsSettings
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeydown)
+  }
+
+  handleKeydown = (e) => {
+    console.log(e.key, e.code, e.keyCode)
+
+    switch (e.keyCode) {
+      case 49:
+        this.handleMelodySequenceChange('', 'steps1')
+        break
+      case 50:
+        this.handleMelodySequenceChange('', 'steps2')
+        break
+      case 81:
+        sampler.triggerAttackRelease('A3', '1n')
+        break
     }
   }
 
@@ -52,14 +76,14 @@ export default class Container extends Component {
 
     bassSynth.chain(bassChorus, bassPingPongDelay)
 
-    const bassPart = new Tone.Part((time, note) => {
+    bassPart = new Tone.Part((time, note) => {
       bassSynth.triggerAttackRelease(
         note.noteName,
         note.duration,
         time,
         note.velocity
       )
-    }, bassSettings.sequence.steps).start(0)
+    }, bassSettings.sequence.steps1).start(0)
 
     bassPart.loopEnd = bassSettings.sequence.duration
     bassPart.loop = bassSettings.sequence.loop
@@ -74,23 +98,24 @@ export default class Container extends Component {
 
     melodySynth.chain(melodyChorus, melodyPingPongDelay)
 
-    const melodyPart = new Tone.Part((time, note) => {
+    melodyPart = new Tone.Part((time, note) => {
       melodySynth.triggerAttackRelease(
         note.noteName,
         note.duration,
         time,
         note.velocity
       )
-    }, melodySettings.sequence.steps).start(0)
+    }, melodySettings.sequence.steps1).start(0)
 
     melodyPart.loopEnd = melodySettings.sequence.duration
     melodyPart.loop = melodySettings.sequence.loop
     //
     //
-    const sampler = new Tone.Sampler({
+    sampler = new Tone.Sampler({
       urls: {
         A1: '00001-Linn-9000-BassDrumrum1.mp3',
-        A2: '00017-Linn-9000-Snare.mp3'
+        A2: '00017-Linn-9000-Snare.mp3',
+        A3: '00002-Linn-9000-Clhh-1.mp3'
       },
       baseUrl: 'http://localhost:3000/samples/'
       // onload: () => {
@@ -115,10 +140,35 @@ export default class Container extends Component {
     drumsPart.loop = drumsSettings.sequence.loop
 
     Tone.Transport.start()
+    Tone.Transport.scheduleRepeat(this.nextMeasure, '1m')
 
     this.setState({
       isStarted: true
     })
+  }
+
+  nextMeasure = () => {
+    const position = Tone.Transport.position
+    const regexBefore = /([\w]+)/
+    let measure = position.match(regexBefore)[1]
+
+    console.log('next measure', measure)
+
+    if (measure == 3) {
+      console.log('measure 3')
+
+      bassPart.clear()
+
+      bassSettings.sequence.steps2.forEach((step, i) => {
+        bassPart.add(step)
+      })
+    } else if (measure == 7) {
+      bassPart.clear()
+
+      bassSettings.sequence.steps1.forEach((step, i) => {
+        bassPart.add(step)
+      })
+    }
   }
 
   handleValueChange = (instrumentName, property, value) => {
@@ -206,6 +256,22 @@ export default class Container extends Component {
     this.setState({
       bassSettings,
       melodySettings
+    })
+  }
+
+  handleMelodySequenceChange = (property, value) => {
+    let steps
+
+    if (value == 'steps1') {
+      steps = melodySettings.sequence.steps1
+    } else if (value == 'steps2') {
+      steps = melodySettings.sequence.steps2
+    }
+
+    melodyPart.clear()
+
+    steps.forEach((step, i) => {
+      melodyPart.add(step)
     })
   }
 
@@ -297,6 +363,16 @@ export default class Container extends Component {
           instrumentName="melody"
           settings={melodySettings}
           handleValueChange={this.handleValueChange}
+        />
+
+        <br />
+
+        <SC_ToggleButtonSet
+          name="Sequence"
+          options={['steps1', 'steps2']}
+          value=""
+          property="melodySequence"
+          handleChange={this.handleMelodySequenceChange}
         />
 
         <PingPongDelayEffect

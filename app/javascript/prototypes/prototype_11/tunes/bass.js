@@ -37,7 +37,7 @@ const chorus = {
 const pingPongDelay = { wet: 0.2, delayTime: 0.25, maxDelayTime: 1 }
 
 const sequence = {
-  steps: [
+  steps1: [
     {
       time: '0:0:0',
       noteName: 'C2',
@@ -59,6 +59,32 @@ const sequence = {
     {
       time: '3:0:0',
       noteName: 'G2',
+      duration: '1n',
+      velocity: 1
+    }
+  ],
+  steps2: [
+    {
+      time: '0:0:0',
+      noteName: 'C3',
+      duration: '1n',
+      velocity: 1
+    },
+    {
+      time: '1:0:0',
+      noteName: 'E3',
+      duration: '1n',
+      velocity: 1
+    },
+    {
+      time: '2:0:0',
+      noteName: 'A3',
+      duration: '1n',
+      velocity: 1
+    },
+    {
+      time: '3:0:0',
+      noteName: 'G3',
       duration: '1n',
       velocity: 1
     }
