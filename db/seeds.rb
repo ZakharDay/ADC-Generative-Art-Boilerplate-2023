@@ -33,7 +33,10 @@
     name: 'Effects UI as components'
   },
   {
-    name: 'New UI Elements And Interactions'
+    name: 'New UI Elements And Interactions (Random)'
+  },
+  {
+    name: 'Settings Presets'
   }
 ]
 

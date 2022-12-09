@@ -6,8 +6,10 @@ import * as melodySettings from './tunes/melody.js'
 import * as drumsSettings from './tunes/drums.js'
 
 import ToneSynth from './modules/ToneSynth.jsx'
-import PingPongDelayEffect from './modules/PingPongDelayEffect.jsx'
 import ChorusEffect from './modules/ChorusEffect.jsx'
+import DistortionEffect from './modules/DistortionEffect.jsx'
+import BitCrusherEffect from './modules/BitCrusherEffect.jsx'
+import PingPongDelayEffect from './modules/PingPongDelayEffect.jsx'
 import Channel from './modules/Channel.jsx'
 
 import SC_ToggleButtonSet from './components/SC_ToggleButtonSet.jsx'
@@ -25,6 +27,8 @@ let bassPart
 
 let melodySynth
 let melodyChorus
+let melodyDistortion
+let melodyBitCrusher
 let melodyPingPongDelay
 let melodyPart
 
@@ -37,7 +41,7 @@ export default class Container extends Component {
 
     this.state = {
       isStarted: false,
-      isUIShown: true,
+      isUIShown: false,
       bpm: 80,
       melodyChangeMeasureSelect: false,
       melodyChangeMeasure: 8,
@@ -81,17 +85,26 @@ export default class Container extends Component {
   }
 
   handleMelodyChangeMeasureSelectClose = (e) => {
-    console.log('close', e.target.classList[0])
+    console.log('handleMelodyChangeMeasureSelectClose')
+    const { isUIShown } = this.state
 
+    // console.log(e.target.classList[0] == 'currentValue')
+    //
+    // if (isUIShown && e.target.classList[0] == 'currentValue') {
+    //   this.setState({
+    //     melodyChangeMeasureSelect: false
+    //   })
+    // } else {
     if (e.target.classList[0] != 'currentValue') {
       this.setState({
         melodyChangeMeasureSelect: false
       })
     }
+    // }
   }
 
   handleMelodyChangeMeasureSelectOpen = () => {
-    console.log('click')
+    console.log('handleMelodyChangeMeasureSelectOpen')
 
     this.setState({
       melodyChangeMeasureSelect: true
@@ -166,12 +179,19 @@ export default class Container extends Component {
     //
     melodySynth = new Tone.Synth(melodySettings.synth)
     melodyChorus = new Tone.Chorus(melodySettings.chorus).start()
+    melodyDistortion = new Tone.Distortion(melodySettings.distortion)
+    melodyBitCrusher = new Tone.BitCrusher(melodySettings.bitCrusher)
 
     melodyPingPongDelay = new Tone.PingPongDelay(
       melodySettings.pingPongDelay
     ).toDestination()
 
-    melodySynth.chain(melodyChorus, melodyPingPongDelay)
+    melodySynth.chain(
+      melodyChorus,
+      melodyDistortion,
+      melodyBitCrusher,
+      melodyPingPongDelay
+    )
 
     melodyPart = new Tone.Part((time, note) => {
       melodySynth.triggerAttackRelease(
@@ -190,7 +210,8 @@ export default class Container extends Component {
       urls: {
         A1: '00001-Linn-9000-BassDrumrum1.mp3',
         A2: '00017-Linn-9000-Snare.mp3',
-        A3: '00002-Linn-9000-Clhh-1.mp3'
+        A3: '00002-Linn-9000-Clhh-1.mp3',
+        A4: '00064-Vermona-DRM1-MK3-Tom13.mp3'
       },
       baseUrl: 'http://localhost:3000/samples/'
       // onload: () => {
@@ -298,19 +319,23 @@ export default class Container extends Component {
     const { bassSettings, melodySettings } = this.state
 
     let instrument
-    let pingPongDelay
     let chorus
+    let distortion
+    let pingPongDelay
+    let bitCrusher
     let settings
 
     if (instrumentName === 'bass') {
       instrument = bassSynth
-      pingPongDelay = bassPingPongDelay
       chorus = bassChorus
+      pingPongDelay = bassPingPongDelay
       settings = bassSettings
     } else if (instrumentName === 'melody') {
       instrument = melodySynth
-      pingPongDelay = melodyPingPongDelay
       chorus = melodyChorus
+      distortion = melodyDistortion
+      pingPongDelay = melodyPingPongDelay
+      bitCrusher = melodyBitCrusher
       settings = melodySettings
     }
 
@@ -338,18 +363,6 @@ export default class Container extends Component {
         instrument.envelope.release = value
         settings.synth.envelope.release = value
         break
-      case 'pingPongDelayWet':
-        pingPongDelay.wet.value = value
-        settings.pingPongDelay.wet = value
-        break
-      case 'pingPongDelayDelayTime':
-        pingPongDelay.delayTime.value = value
-        settings.pingPongDelay.delayTime = value
-        break
-      case 'pingPongDelayMaxDelayTime':
-        pingPongDelay.maxDelayTime = value
-        settings.pingPongDelay.maxDelayTime = value
-        break
       case 'chorusWet':
         chorus.wet.value = value
         settings.chorus.wet = value
@@ -374,10 +387,119 @@ export default class Container extends Component {
         chorus.spread = value
         settings.chorus.spread = value
         break
+      case 'distortionWet':
+        distortion.wet.value = value
+        settings.distortion.wet = value
+        break
+      case 'distortionDistortion':
+        distortion.distortion = value
+        settings.distortion.distortion = value
+        break
+      case 'distortionOversample':
+        distortion.oversample = value
+        settings.distortion.oversample = value
+        break
+      case 'bitCrusherWet':
+        bitCrusher.wet.value = value
+        settings.bitCrusher.wet = value
+        break
+      case 'bitCrusherBits':
+        bitCrusher.bits = value
+        settings.bitCrusher.bits = value
+        break
+      case 'pingPongDelayWet':
+        pingPongDelay.wet.value = value
+        settings.pingPongDelay.wet = value
+        break
+      case 'pingPongDelayDelayTime':
+        pingPongDelay.delayTime.value = value
+        settings.pingPongDelay.delayTime = value
+        break
+      case 'pingPongDelayMaxDelayTime':
+        pingPongDelay.maxDelayTime = value
+        settings.pingPongDelay.maxDelayTime = value
+        break
     }
 
     this.setState({
       bassSettings,
+      melodySettings
+    })
+  }
+
+  handleMelodySoundPresetChange = (property, value) => {
+    const { melodySettings } = this.state
+    const preset = melodySettings.presets[value]
+
+    const instrument = melodySynth
+    const chorus = melodyChorus
+    const distortion = melodyDistortion
+    const pingPongDelay = melodyPingPongDelay
+    const bitCrusher = melodyBitCrusher
+    const settings = melodySettings
+
+    const { oscillator, envelope } = preset.synth
+
+    instrument.oscillator.type = oscillator.type
+    settings.synth.oscillator.type = oscillator.type
+
+    instrument.envelope.attack = envelope.attack
+    settings.synth.envelope.attack = envelope.attack
+
+    instrument.envelope.decay = envelope.decay
+    settings.synth.envelope.decay = envelope.decay
+
+    instrument.envelope.sustain = envelope.sustain
+    settings.synth.envelope.sustain = envelope.sustain
+
+    instrument.envelope.release = envelope.release
+    settings.synth.envelope.release = envelope.release
+
+    chorus.wet.value = preset.chorus.wet
+    settings.chorus.wet = preset.chorus.wet
+
+    chorus.type = preset.chorus.type
+    settings.chorus.type = preset.chorus.type
+
+    chorus.frequency.value = preset.chorus.frequency
+    settings.chorus.frequency = preset.chorus.frequency
+
+    chorus.delayTime = preset.chorus.delayTime
+    settings.chorus.delayTime = preset.chorus.delayTime
+
+    chorus.depth = preset.chorus.depth
+    settings.chorus.depth = preset.chorus.depth
+
+    chorus.spread = preset.chorus.spread
+    settings.chorus.spread = preset.chorus.spread
+
+    distortion.wet.value = preset.distortion.wet
+    settings.distortion.wet = preset.distortion.wet
+
+    distortion.distortion = preset.distortion.distortion
+    settings.distortion.distortion = preset.distortion.distortion
+
+    distortion.oversample = preset.distortion.oversample
+    settings.distortion.oversample = preset.distortion.oversample
+
+    bitCrusher.wet.value = preset.bitCrusher.wet
+    settings.bitCrusher.wet = preset.bitCrusher.wet
+
+    bitCrusher.bits = preset.bitCrusher.bits
+    settings.bitCrusher.bits = preset.bitCrusher.bits
+
+    pingPongDelay.wet.value = preset.pingPongDelay.wet
+    settings.pingPongDelay.wet = preset.pingPongDelay.wet
+
+    pingPongDelay.delayTime.value = preset.pingPongDelay.delayTime
+    settings.pingPongDelay.delayTime = preset.pingPongDelay.delayTime
+
+    pingPongDelay.maxDelayTime = preset.pingPongDelay.maxDelayTime
+    settings.pingPongDelay.maxDelayTime = preset.pingPongDelay.maxDelayTime
+
+    settings.presets.current = value
+
+    this.setState({
       melodySettings
     })
   }
@@ -487,6 +609,67 @@ export default class Container extends Component {
           }}
         />
 
+        <br />
+
+        <div className="sampleButtonWrapper">
+          <SC_Button
+            text="Sample"
+            handleClick={() => {
+              sampler.triggerAttackRelease('A4', '1n')
+            }}
+          />
+        </div>
+
+        <ToneSynth
+          title="Bass Synth"
+          instrumentName="bass"
+          settings={bassSettings}
+          handleValueChange={this.handleValueChange}
+        />
+
+        <PingPongDelayEffect
+          title="Ping Pong Delay"
+          instrumentName="bass"
+          settings={bassSettings}
+          handleValueChange={this.handleValueChange}
+        />
+
+        <ChorusEffect
+          title="Chorus"
+          instrumentName="bass"
+          settings={bassSettings}
+          handleValueChange={this.handleValueChange}
+        />
+
+        <ToneSynth
+          title="Melody Synth"
+          instrumentName="melody"
+          settings={melodySettings}
+          handleValueChange={this.handleValueChange}
+        />
+
+        <br />
+
+        <SC_ToggleButtonSet
+          name="Sequence"
+          options={['steps1', 'steps2']}
+          value={melodySettings.sequence.current}
+          property="melodySequence"
+          handleChange={this.handleMelodySequenceChange}
+        />
+
+        <br />
+
+        <SC_ToggleButtonSet
+          name="Sound"
+          options={['default', 'preset1', 'preset2']}
+          value={melodySettings.presets.current}
+          property="melodySoundPreset"
+          handleChange={this.handleMelodySoundPresetChange}
+        />
+
+        <br />
+
         <Select
           name="Change melody on measure"
           options={[2, 4, 8, 16, 32]}
@@ -495,6 +678,9 @@ export default class Container extends Component {
           property=""
           handleMelodyChangeMeasureSelectOpen={
             this.handleMelodyChangeMeasureSelectOpen
+          }
+          handleMelodyChangeMeasureSelectClose={
+            this.handleMelodyChangeMeasureSelectClose
           }
           handleChange={this.handleMelodyChangeMeasure}
         />
@@ -513,47 +699,31 @@ export default class Container extends Component {
           handleClick={this.handleMelodyChangeRandom}
         />
 
-        <ToneSynth
-          instrumentName="bass"
-          settings={bassSettings}
-          handleValueChange={this.handleValueChange}
-        />
-
-        <PingPongDelayEffect
-          instrumentName="bass"
-          settings={bassSettings}
-          handleValueChange={this.handleValueChange}
-        />
-
-        <ChorusEffect
-          instrumentName="bass"
-          settings={bassSettings}
-          handleValueChange={this.handleValueChange}
-        />
-
-        <ToneSynth
-          instrumentName="melody"
-          settings={melodySettings}
-          handleValueChange={this.handleValueChange}
-        />
-
         <br />
 
-        <SC_ToggleButtonSet
-          name="Sequence"
-          options={['steps1', 'steps2']}
-          value={melodySettings.sequence.current}
-          property="melodySequence"
-          handleChange={this.handleMelodySequenceChange}
-        />
-
-        <PingPongDelayEffect
+        <ChorusEffect
+          title="Chorus"
           instrumentName="melody"
           settings={melodySettings}
           handleValueChange={this.handleValueChange}
         />
 
-        <ChorusEffect
+        <DistortionEffect
+          title="Distortion"
+          instrumentName="melody"
+          settings={melodySettings}
+          handleValueChange={this.handleValueChange}
+        />
+
+        <BitCrusherEffect
+          title="BitCrusher"
+          instrumentName="melody"
+          settings={melodySettings}
+          handleValueChange={this.handleValueChange}
+        />
+
+        <PingPongDelayEffect
+          title="Ping Pong Delay"
           instrumentName="melody"
           settings={melodySettings}
           handleValueChange={this.handleValueChange}
