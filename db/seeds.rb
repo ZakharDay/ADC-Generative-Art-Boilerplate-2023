@@ -37,6 +37,9 @@
   },
   {
     name: 'Settings Presets'
+  },
+  {
+    name: 'Final final psd'
   }
 ]
 
