@@ -39,7 +39,10 @@
     name: 'Settings Presets'
   },
   {
-    name: 'Final final psd'
+    name: 'UI Systematisation'
+  },
+  {
+    name: 'Final synth'
   }
 ]
 
