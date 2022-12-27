@@ -43,6 +43,9 @@
   },
   {
     name: 'Final synth'
+  },
+  {
+    name: 'ADC Tuneblaster 2023'
   }
 ]
 
