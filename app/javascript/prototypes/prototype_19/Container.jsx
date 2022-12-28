@@ -77,8 +77,6 @@ export default class Container extends Component {
 
       channels.forEach((channel, i) => {
         if (channel.name === bus.settings.channel) {
-          console.log('connection added to queue', channel.id)
-
           connections.push({
             from: {
               type: 'Bus',
@@ -122,8 +120,6 @@ export default class Container extends Component {
 
       busses.forEach((bus, i) => {
         if (bus.name === chain.settings.bus) {
-          console.log('connection added to queue', bus.id)
-
           connections.push({
             from: {
               type: 'Chain',
@@ -186,14 +182,11 @@ export default class Container extends Component {
   // К инструментам добавляем лупы
 
   initLoops = (instruments) => {
-    console.log('INSTRUMENTS', instruments)
-
     instruments.forEach((instrument, i) => {
       const { id, settings, sequences } = instrument
       const sequenceSettings = sequences[settings.sequence]
       const instrumentNode = nodes[id]
       const loopNodeId = generateHash()
-      console.log('instrumentNode', instrumentNode, sequenceSettings)
       nodes[loopNodeId] = this.createLoopNode(instrumentNode, sequenceSettings)
       instrument.loopNodeId = loopNodeId
     })
@@ -258,7 +251,6 @@ export default class Container extends Component {
         break
       case 'Sampler':
         // this.bufferSamples(settings.samples)
-
         node = new Tone.Sampler({
           urls: settings.samples,
           baseUrl: 'http://localhost:3000/samples/'
@@ -303,8 +295,6 @@ export default class Container extends Component {
 
   connectNodes = () => {
     return new Promise((resolve, reject) => {
-      console.log('connect nodes', connections)
-
       connections.forEach((connection, i) => {
         let outputNode
         let inputNode
@@ -331,8 +321,6 @@ export default class Container extends Component {
           this.state.chains.forEach((chain, i) => {
             if (chain.id === connection.to.id) {
               if (chain.effectIds.length > 1) {
-                console.log('more then 1')
-
                 chain.effectIds.forEach((effectId, i) => {
                   if (i + 1 < length) {
                     const effectOutputNode = nodes[effectId]
@@ -351,8 +339,6 @@ export default class Container extends Component {
           this.state.busses.forEach((bus, i) => {
             if (bus.id === connection.to.id) {
               if (bus.effectIds.length > 1) {
-                console.log('more then 1')
-
                 bus.effectIds.forEach((effectId, i) => {
                   if (i + 1 < length) {
                     const effectOutputNode = nodes[effectId]
@@ -369,7 +355,7 @@ export default class Container extends Component {
           })
         }
 
-        console.log('connect', inputNode, outputNode)
+        // console.log('connect', inputNode, outputNode)
         outputNode.connect(inputNode)
       })
 
@@ -384,7 +370,6 @@ export default class Container extends Component {
     this.initDAW()
       .then(() => this.connectNodes())
       .then(() => {
-        console.log(nodes)
         this.handleTransportChange('play', true)
       })
   }

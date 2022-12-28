@@ -466,8 +466,8 @@ const props = {
       name: 'Ambient',
       type: 'ToneSynth',
       settings: {
-        preset: 0,
-        sequence: 0,
+        preset: 1,
+        sequence: 1,
         chain: 'Chain 3',
         lockedToChain: true
       },
