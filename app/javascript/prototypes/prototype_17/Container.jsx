@@ -29,7 +29,6 @@ export default class Container extends Component {
         channels
       })
 
-      // setTimeout(() => resolve(), 1000)
       resolve()
     })
   }
@@ -222,14 +221,6 @@ export default class Container extends Component {
       resolve()
     })
   }
-
-  // initBuses = () => {}
-  // initBuse = () => {}
-
-  // initChains = () => {}
-  // initChain = () => {}
-
-  // initEffect = () => {}
 
   handleStartButtonClick = () => {
     this.initDAW()

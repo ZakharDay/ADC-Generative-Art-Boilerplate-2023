@@ -316,14 +316,6 @@ export default class Container extends Component {
     })
   }
 
-  // initBuses = () => {}
-  // initBuse = () => {}
-
-  // initChains = () => {}
-  // initChain = () => {}
-
-  // initEffect = () => {}
-
   handleStartButtonClick = () => {
     this.initDAW()
       .then(() => this.connectNodes())
