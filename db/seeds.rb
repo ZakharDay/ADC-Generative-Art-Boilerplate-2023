@@ -55,6 +55,9 @@
   },
   {
     name: 'ADC Tuneblaster 2023 v0.4: New instruments to test "spaces"'
+  },
+  {
+    name: 'ADC Tuneblaster 2023 v1.0: UI'
   }
 ]
 
