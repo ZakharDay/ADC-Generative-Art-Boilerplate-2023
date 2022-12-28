@@ -31,7 +31,6 @@ export default class Container extends Component {
         channels
       })
 
-      // setTimeout(() => resolve(), 1000)
       resolve()
     })
   }
@@ -174,6 +173,8 @@ export default class Container extends Component {
     return instruments
   }
 
+  // К инструментам добавляем лупы
+
   initLoops = (instruments) => {
     console.log('INSTRUMENTS', instruments)
 
@@ -187,6 +188,8 @@ export default class Container extends Component {
       instrument.loopNodeId = loopNodeId
     })
   }
+
+  // Здесь создаются аудио-ноды разных типов
 
   createToneNode = (type, id, settings) => {
     let node
@@ -239,6 +242,10 @@ export default class Container extends Component {
 
     return loopNode
   }
+
+  // И самое главное — соединение нод между собой.
+  // В функциях выше наполняется список connections,
+  // а здесь мы по нему идём и создаём подключения
 
   connectNodes = () => {
     return new Promise((resolve, reject) => {
@@ -316,6 +323,9 @@ export default class Container extends Component {
     })
   }
 
+  // Здесь описан алгоритм инициализации,
+  // который построен на промисах
+
   handleStartButtonClick = () => {
     this.initDAW()
       .then(() => this.connectNodes())
@@ -346,6 +356,9 @@ export default class Container extends Component {
         break
     }
   }
+
+  // А это стандартные вещи,
+  // которые нет необходимости объяснять
 
   renderStartButton = () => {
     return (
