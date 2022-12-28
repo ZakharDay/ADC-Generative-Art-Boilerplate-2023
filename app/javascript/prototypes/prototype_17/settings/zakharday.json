@@ -6,7 +6,7 @@
       "settings": {
         "preset": 0,
         "sequence": 0,
-        "chain": 0,
+        "chain": "Chain 1",
         "lockedToChain": true
       },
       "presets": [
@@ -204,11 +204,8 @@
       "name": "Chain 1",
       "settings": {
         "preset": 0,
-        "effects": ["Chorus", "PingPongDelay"],
-        "output": {
-          "type": "channel",
-          "id": 0
-        }
+        "effects": ["Chorus"],
+        "channel": "Channel 1"
       },
       "presets": [
         {
