@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { props } from '../prototypes/prototype_19/settings/zakharday.js'
+import { props } from '../prototypes/prototype_19/settings/all_nodes.js'
 
 import Container from '../prototypes/prototype_19/Container'
 

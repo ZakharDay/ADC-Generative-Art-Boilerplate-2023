@@ -15,6 +15,16 @@ export default class Container extends Component {
     this.state = {}
   }
 
+  // bufferSamples = (samples) => {
+  //   Object.keys(samples).forEach((note, i) => {
+  //     const sample = new Tone.Buffer(`/samples/${samples[note]}.mp3`, () => {
+  //       sample.get()
+  //     })
+  //
+  //     samples[note] = sample
+  //   })
+  // }
+
   initDAW = () => {
     return new Promise((resolve, reject) => {
       const channels = this.initChannels()
@@ -195,11 +205,26 @@ export default class Container extends Component {
     let node
 
     switch (type) {
-      case 'Chorus':
-        node = new Tone.Chorus(settings).start()
+      case 'AutoFilter':
+        node = new Tone.AutoFilter(settings).start()
+        break
+      case 'AutoPanner':
+        node = new Tone.AutoPanner(settings).start()
+        break
+      case 'AutoWah':
+        node = new Tone.AutoWah(settings)
         break
       case 'BitCrusher':
         node = new Tone.BitCrusher(settings)
+        break
+      case 'Channel':
+        node = new Tone.Channel(settings).toDestination()
+        break
+      case 'Chebyshev':
+        node = new Tone.Chebyshev(settings)
+        break
+      case 'Chorus':
+        node = new Tone.Chorus(settings).start()
         break
       case 'Distortion':
         node = new Tone.Distortion(settings)
@@ -207,11 +232,40 @@ export default class Container extends Component {
       case 'FeedbackDelay':
         node = new Tone.FeedbackDelay(settings)
         break
+      case 'Freeverb':
+        node = new Tone.Freeverb(settings)
+        break
+      case 'FrequencyShifter':
+        node = new Tone.FrequencyShifter(settings)
+        break
+      case 'JCReverb':
+        node = new Tone.JCReverb(settings)
+        break
+      case 'MidSideEffect':
+        node = new Tone.MidSideEffect(settings)
+        break
+      case 'Phaser':
+        node = new Tone.Phaser(settings)
+        break
       case 'PingPongDelay':
         node = new Tone.PingPongDelay(settings)
         break
+      case 'PitchShift':
+        node = new Tone.PitchShift(settings)
+        break
       case 'Reverb':
         node = new Tone.Reverb(settings)
+        break
+      case 'Sampler':
+        // this.bufferSamples(settings.samples)
+
+        node = new Tone.Sampler({
+          urls: settings.samples,
+          baseUrl: 'http://localhost:3000/samples/'
+        })
+        break
+      case 'StereoWidener':
+        node = new Tone.StereoWidener(settings)
         break
       case 'ToneSynth':
         node = new Tone.Synth(settings)
@@ -219,8 +273,8 @@ export default class Container extends Component {
       case 'Tremolo':
         node = new Tone.Tremolo(settings)
         break
-      case 'Channel':
-        node = new Tone.Channel(settings).toDestination()
+      case 'Vibrato':
+        node = new Tone.Vibrato(settings)
         break
     }
 
