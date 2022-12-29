@@ -31,7 +31,7 @@ const props = {
           }
         },
         {
-          volume: -10,
+          volume: -16,
           detune: 0,
           portamento: 0.05,
           envelope: {
@@ -46,7 +46,7 @@ const props = {
           oscillator: {
             type: 'sawtooth',
             modulationType: 'sine',
-            phase: 0,
+            phase: 6,
             harmonicity: 0.5
           }
         }
@@ -87,109 +87,25 @@ const props = {
             {
               time: '0:0:0',
               noteName: 'C2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '0:0:2',
-              noteName: 'D2',
-              duration: '3n',
-              velocity: 1
-            },
-            {
-              time: '0:2:0',
-              noteName: 'G2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '0:2:2',
-              noteName: 'A2',
-              duration: '3n',
+              duration: '1n',
               velocity: 1
             },
             {
               time: '1:0:0',
               noteName: 'E2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '1:0:2',
-              noteName: 'D2',
-              duration: '3n',
-              velocity: 1
-            },
-            {
-              time: '1:2:0',
-              noteName: 'A2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '1:2:2',
-              noteName: 'E2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '1:3:0',
-              noteName: 'G2',
-              duration: '4n',
+              duration: '1n',
               velocity: 1
             },
             {
               time: '2:0:0',
-              noteName: 'C2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '2:0:2',
-              noteName: 'D2',
-              duration: '3n',
-              velocity: 1
-            },
-            {
-              time: '2:2:0',
-              noteName: 'G2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '2:2:2',
               noteName: 'A2',
-              duration: '3n',
+              duration: '1n',
               velocity: 1
             },
             {
               time: '3:0:0',
-              noteName: 'E2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '3:0:2',
-              noteName: 'D2',
-              duration: '3n',
-              velocity: 1
-            },
-            {
-              time: '3:2:0',
-              noteName: 'A2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '3:2:2',
-              noteName: 'E2',
-              duration: '8n',
-              velocity: 1
-            },
-            {
-              time: '3:3:0',
               noteName: 'G2',
-              duration: '4n',
+              duration: '1n',
               velocity: 1
             }
           ],
@@ -203,7 +119,7 @@ const props = {
       type: 'ToneSynth',
       settings: {
         preset: 0,
-        sequence: 2,
+        sequence: 0,
         chain: 'Chain 2',
         lockedToChain: true
       },
@@ -531,6 +447,26 @@ const props = {
             phase: 0,
             harmonicity: 0.5
           }
+        },
+        {
+          volume: -10,
+          detune: 0,
+          portamento: 0.9,
+          envelope: {
+            attack: 0.1,
+            attackCurve: 'exponential',
+            decay: 0.4,
+            decayCurve: 'exponential',
+            sustain: 0.8,
+            release: 0.6,
+            releaseCurve: 'exponential'
+          },
+          oscillator: {
+            type: 'square',
+            modulationType: 'triangle',
+            phase: 8,
+            harmonicity: 0.5
+          }
         }
       ],
       sequences: [
@@ -823,6 +759,78 @@ const props = {
           ],
           duration: '1m',
           loop: true
+        },
+        {
+          sequence: [
+            {
+              time: '0:0:0',
+              noteName: 'C3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '0:3:0',
+              noteName: 'C3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '1:0:0',
+              noteName: 'G3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '2:0:0',
+              noteName: 'A3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '3:0:0',
+              noteName: 'E3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '4:0:0',
+              noteName: 'C3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '4:3:0',
+              noteName: 'E4',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '4:3:2',
+              noteName: 'A4',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '5:0:0',
+              noteName: 'G3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '6:0:0',
+              noteName: 'A3',
+              duration: '16n',
+              velocity: 0.2
+            },
+            {
+              time: '7:0:0',
+              noteName: 'E3',
+              duration: '16n',
+              velocity: 0.2
+            }
+          ],
+          duration: '8m',
+          loop: true
         }
       ]
     }
@@ -848,11 +856,11 @@ const props = {
         },
         {
           Chorus: {
-            wet: 1,
-            type: 'square',
-            frequency: 300,
-            delayTime: 8.5,
-            depth: 0.99,
+            wet: 0.2,
+            type: 'sawtooth',
+            frequency: 600,
+            delayTime: 3.5,
+            depth: 0.7,
             spread: 180
           }
         }
@@ -950,6 +958,28 @@ const props = {
           FeedbackDelay: {
             wet: 0.8,
             delayTime: '16n',
+            maxDelay: 16
+          }
+        },
+        {
+          Chorus: {
+            wet: 1,
+            type: 'square',
+            frequency: 600,
+            delayTime: 60,
+            depth: 0.3,
+            spread: 180
+          },
+          Tremolo: {
+            wet: 1,
+            frequency: 600,
+            type: 'triangle',
+            depth: 0.9,
+            spread: 180
+          },
+          FeedbackDelay: {
+            wet: 1,
+            delayTime: 6,
             maxDelay: 16
           }
         }

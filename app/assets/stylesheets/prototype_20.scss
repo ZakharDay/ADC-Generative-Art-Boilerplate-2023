@@ -27,5 +27,59 @@
       font-size: 30px;
       line-height: 150px;
     }
+
+    .BlasterControl {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .InstrumentsRack {
+        display: flex;
+
+        .InstrumentColumn {
+          width: var(--column-width);
+          background: var(--medium-grey);
+          border-top: 1px solid black;
+          border-bottom: 1px solid black;
+          border-left: 1px solid black;
+
+          &:last-child {
+            border-right: 1px solid black;
+          }
+
+          .InstrumentName {
+            height: var(--row-height);
+            padding: 0 4px;
+            line-height: var(--row-height);
+            border-bottom: 1px solid black;
+          }
+
+          .SC_ToggleButton {
+            height: var(--row-height);
+            padding: 0 4px;
+            line-height: var(--row-height);
+            border-bottom: 1px solid black;
+            cursor: pointer;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &:hover {
+              background: var(--light-grey);
+            }
+
+            &.active {
+              background: var(--acid-green);
+
+              &:hover {
+                background: var(--acid-green);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

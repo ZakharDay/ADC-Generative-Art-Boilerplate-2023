@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import { generateHash } from './utilities'
 
 import SC_Button from './components/SC_Button'
+import InstrumentColumn from './components/InstrumentColumn'
+// import PresetButtonSet from './components/PresetButtonSet'
 
 const nodes = {}
 const connections = []
@@ -615,31 +617,20 @@ export default class Container extends Component {
     const chainElements = []
 
     instruments.forEach((instrument, i) => {
-      const presetElements = []
-
-      instrument.presets.forEach((preset, presetIndex) => {
-        presetElements.push(
-          <div
-            className="Preset"
-            key={'preset' + presetIndex}
-            onClick={() => {
-              this.handlePresetSwitchClick(instrument.id, presetIndex)
-            }}
-          >
-            Preset {presetIndex + 1}
-          </div>
-        )
-      })
-
       instrumentElements.push(
-        <div className="Instrument" key={i}>
-          <h1>{instrument.name}</h1>
-          {presetElements}
-        </div>
+        <InstrumentColumn
+          instrument={instrument}
+          handleChange={this.handlePresetSwitchClick}
+          key={i}
+        />
       )
     })
 
-    return <>{instrumentElements}</>
+    return (
+      <div className="BlasterControl">
+        <div className="InstrumentsRack">{instrumentElements}</div>
+      </div>
+    )
   }
 
   render() {

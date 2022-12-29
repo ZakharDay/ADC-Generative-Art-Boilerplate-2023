@@ -2,14 +2,14 @@ import React, { PureComponent } from 'react'
 
 import SC_ToggleButton from './SC_ToggleButton'
 
-export default class SC_ToggleButtonSet extends PureComponent {
+export default class PresetButtonSet extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  handleChange = (value) => {
-    const { property, handleChange } = this.props
-    handleChange(property, value)
+  handleChange = (presetIndex) => {
+    const { instrumentId, handleChange } = this.props
+    handleChange(instrumentId, presetIndex)
   }
 
   render() {
@@ -21,14 +21,14 @@ export default class SC_ToggleButtonSet extends PureComponent {
         <SC_ToggleButton
           text={option}
           isOn={option === value}
-          handleClick={() => this.handleChange(option)}
+          handleClick={() => this.handleChange(i)}
           key={i}
         />
       )
     })
 
     return (
-      <div className="SC_ToggleButtonSet">
+      <div className="PresetButtonSet">
         <div>{buttonElements}</div>
       </div>
     )
