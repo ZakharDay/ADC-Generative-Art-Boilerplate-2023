@@ -5,6 +5,9 @@ import { generateHash } from './utilities'
 
 import SC_Button from './components/SC_Button'
 import InstrumentColumn from './components/InstrumentColumn'
+import ChainColumn from './components/ChainColumn'
+import BusColumn from './components/BusColumn'
+import ChannelColumn from './components/ChannelColumn'
 
 const nodes = {}
 const connections = []
@@ -420,7 +423,6 @@ export default class Container extends Component {
   changeNodeSettings = (type, node, preset) => {
     switch (type) {
       case 'AutoFilter':
-        node.wet.value = preset.wet
         node.type = preset.type
         node.frequency.value = preset.frequency
         node.depth.value = preset.depth
@@ -430,25 +432,26 @@ export default class Container extends Component {
         node.filter.frequency.value = preset.filter.frequency
         node.filter.rolloff = preset.filter.rolloff
         node.filter.Q.value = preset.filter.Q
+        node.wet.value = preset.wet
         break
       case 'AutoPanner':
-        node.wet.value = preset.wet
         node.type = preset.type
         node.frequency.value = preset.frequency
         node.depth.value = preset.depth
+        node.wet.value = preset.wet
         break
       case 'AutoWah':
-        node.wet.value = preset.wet
         node.baseFrequency = preset.baseFrequency
         node.octaves = preset.octaves
         node.sensitivity = preset.sensitivity
         node.Q.value = preset.Q
         node.gain.value = preset.gain
         node.follower = preset.follower
+        node.wet.value = preset.wet
         break
       case 'BitCrusher':
-        node.wet.value = preset.wet
         node.bits = preset.bits
+        node.wet.value = preset.wet
         break
       // case 'Channel':
       // node.volume.value = volume
@@ -457,68 +460,68 @@ export default class Container extends Component {
       // node.solo = solo
       // break
       case 'Chebyshev':
-        node.wet.value = preset.wet
         node.order = preset.order
         node.oversample = preset.oversample
+        node.wet.value = preset.wet
         break
       case 'Chorus':
-        node.wet.value = preset.wet
         node.type = preset.type
         node.frequency.value = preset.frequency
         node.delayTime = preset.delayTime
         node.depth = preset.depth
         node.spread = preset.spread
+        node.wet.value = preset.wet
         break
       case 'Distortion':
-        node.wet.value = preset.wet
         node.distortion = preset.distortion
         node.oversample = preset.oversample
+        node.wet.value = preset.wet
         break
       case 'FeedbackDelay':
-        node.wet.value = preset.wet
         node.delayTime.value = preset.delayTime
         node.maxDelay = preset.maxDelay
+        node.wet.value = preset.wet
         break
       case 'Freeverb':
-        node.wet.value = preset.wet
         node.roomSize.value = preset.roomSize
         node.dampening = preset.dampening
+        node.wet.value = preset.wet
         break
       case 'FrequencyShifter':
-        node.wet.value = preset.wet
         node.frequency = preset.frequency
+        node.wet.value = preset.wet
         break
       case 'JCReverb':
-        node.wet.value = preset.wet
         node.roomSize.value = preset.roomSize
+        node.wet.value = preset.wet
         break
       // case 'MidSideEffect':
       //   node.wet.value = wet
       //   break
       case 'Phaser':
-        node.wet.value = preset.wet
         node.frequency.value = preset.frequency
         node.octaves = preset.octaves
         node.stages = preset.stages
         node.Q.value = preset.Q
         node.baseFrequency = preset.baseFrequency
+        node.wet.value = preset.wet
         break
       case 'PingPongDelay':
-        node.wet.value = preset.wet
         node.delayTime.value = preset.delayTime
         node.maxDelayTime = preset.maxDelayTime
+        node.wet.value = preset.wet
         break
       case 'PitchShift':
-        node.wet.value = preset.wet
         node.pitch = preset.pitch
         node.windowSize = preset.windowSize
         node.delayTime.value = preset.delayTime
         node.feedback.value = preset.feedback
+        node.wet.value = preset.wet
         break
       case 'Reverb':
-        node.wet.value = preset.wet
         node.decay = preset.decay
         node.preDelay = preset.preDelay
+        node.wet.value = preset.wet
         break
       // case 'Sampler':
       // node.volume.value = volume
@@ -527,11 +530,10 @@ export default class Container extends Component {
       // node.curve = curve
       // break
       case 'StereoWidener':
-        node.wet.value = preset.wet
         node.width.value = preset.width
+        node.wet.value = preset.wet
         break
       case 'ToneSynth':
-        node.volume.value = preset.volume
         node.detune.value = preset.detune
         node.portamento = preset.portamento
         node.envelope.attack = preset.envelope.attack
@@ -544,23 +546,24 @@ export default class Container extends Component {
         node.oscillator.type = preset.oscillator.type
         node.oscillator.modulationType = preset.oscillator.modulationType
         node.oscillator.phase = preset.oscillator.phase
+        node.volume.value = preset.volume
 
         // Read only
         // node.oscillator.harmonicity.value = preset.oscillator.harmonicity
         break
       case 'Tremolo':
-        node.wet.value = preset.wet
         node.frequency.value = preset.frequency
         node.type = preset.type
         node.depth.value = preset.depth
         node.spread = preset.spread
+        node.wet.value = preset.wet
         break
       case 'Vibrato':
-        node.wet.value = preset.wet
         node.maxDelay = preset.maxDelay
         node.frequency.value = preset.frequency
         node.depth.value = preset.depth
         node.type = preset.type
+        node.wet.value = preset.wet
         break
     }
   }
@@ -585,9 +588,11 @@ export default class Container extends Component {
   }
 
   renderUI = () => {
-    const { instruments, chains } = this.state
+    const { instruments, chains, busses, channels } = this.state
     const instrumentElements = []
     const chainElements = []
+    const busElements = []
+    const channelElements = []
 
     instruments.forEach((instrument, i) => {
       instrumentElements.push(
@@ -599,10 +604,36 @@ export default class Container extends Component {
       )
     })
 
+    chains.forEach((chain, i) => {
+      chainElements.push(<ChainColumn chain={chain} key={i} />)
+    })
+
+    busses.forEach((bus, i) => {
+      busElements.push(<BusColumn bus={bus} key={i} />)
+    })
+
+    channels.forEach((channel, i) => {
+      channelElements.push(<ChannelColumn channel={channel} key={i} />)
+    })
+
     return (
-      <div className="BlasterControl">
-        <div className="InstrumentsRack">{instrumentElements}</div>
-      </div>
+      <>
+        <div className="BlasterControl">
+          <div className="ControlPanelHeader">Blaster Control</div>
+          <div className="InstrumentsRack">{instrumentElements}</div>
+          <div className="EffectsRack">{chainElements}</div>
+        </div>
+
+        <div className="SpacesControl">
+          <div className="ControlPanelHeader">Space Control</div>
+          <div className="BusRack">{busElements}</div>
+        </div>
+
+        <div className="MixControl">
+          <div className="ControlPanelHeader">Mix Control</div>
+          <div className="ChannelRack">{channelElements}</div>
+        </div>
+      </>
     )
   }
 

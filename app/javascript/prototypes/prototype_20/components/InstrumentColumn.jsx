@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import InstrumentName from './InstrumentName'
+import ColumnName from './ColumnName'
 import PresetButtonSet from './PresetButtonSet'
 
 export default class InstrumentColumn extends PureComponent {
@@ -19,7 +19,7 @@ export default class InstrumentColumn extends PureComponent {
 
     return (
       <div className="InstrumentColumn">
-        <InstrumentName name={instrument.name} />
+        <ColumnName name={instrument.name} />
 
         <PresetButtonSet
           instrumentId={instrument.id}

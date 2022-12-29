@@ -1,5 +1,5 @@
 .prototype_body_20 {
-  background: var(--medium-grey);
+  background: var(--dark-grey);
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -10,13 +10,15 @@
   .Container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 40px;
 
     .SC_Button {
       width: 560px;
       height: 140px;
-      margin: auto;
+      // margin: auto;
       // margin-bottom: 20px;
       color: var(--black);
       background: var(--acid-green);
@@ -28,17 +30,40 @@
       line-height: 150px;
     }
 
-    .BlasterControl {
+    .BlasterControl,
+    .SpacesControl,
+    .MixControl {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: flex-start;
+      align-items: flex-start;
+      // width: 660px;
+      background: var(--medium-grey);
+      padding: 0 30px 30px 30px;
+      margin: 10px 0;
 
-      .InstrumentsRack {
+      .ControlPanelHeader {
+        height: 30px;
+        line-height: 30px;
+        text-transform: uppercase;
+      }
+
+      .EffectsRack {
+        margin-top: 10px;
+      }
+
+      .InstrumentsRack,
+      .EffectsRack,
+      .BusRack,
+      .ChannelRack {
         display: flex;
 
-        .InstrumentColumn {
+        .InstrumentColumn,
+        .ChainColumn,
+        .BusColumn,
+        .ChannelColumn {
           width: var(--column-width);
+          padding-bottom: var(--row-height);
           background: var(--medium-grey);
           border-top: 1px solid black;
           border-bottom: 1px solid black;
@@ -48,11 +73,22 @@
             border-right: 1px solid black;
           }
 
-          .InstrumentName {
+          .ColumnName {
             height: var(--row-height);
             padding: 0 4px;
             line-height: var(--row-height);
             border-bottom: 1px solid black;
+          }
+
+          .ColumnRow {
+            height: var(--row-height);
+            padding: 0 4px;
+            line-height: var(--row-height);
+            border-bottom: 1px solid black;
+
+            // &:last-child {
+            //   border: none;
+            // }
           }
 
           .SC_ToggleButton {
@@ -62,9 +98,9 @@
             border-bottom: 1px solid black;
             cursor: pointer;
 
-            &:last-child {
-              border-bottom: none;
-            }
+            // &:last-child {
+            //   border-bottom: none;
+            // }
 
             &:hover {
               background: var(--light-grey);

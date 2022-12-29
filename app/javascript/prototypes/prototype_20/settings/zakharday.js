@@ -118,8 +118,8 @@ const props = {
       name: 'Melody',
       type: 'ToneSynth',
       settings: {
-        preset: 0,
-        sequence: 0,
+        preset: 2,
+        sequence: 2,
         chain: 'Chain 2',
         lockedToChain: true
       },
@@ -402,8 +402,8 @@ const props = {
       name: 'Ambient',
       type: 'ToneSynth',
       settings: {
-        preset: 0,
-        sequence: 0,
+        preset: 2,
+        sequence: 2,
         chain: 'Chain 3',
         lockedToChain: true
       },
@@ -1050,7 +1050,7 @@ const props = {
       settings: {
         preset: 0,
         effects: ['Reverb'],
-        channel: 'Channel 2'
+        channel: 'Channel 3'
       },
       presets: [
         {
@@ -1082,6 +1082,15 @@ const props = {
     },
     {
       name: 'Channel 2',
+      settings: {
+        volume: 0,
+        pan: 0,
+        mute: false,
+        solo: false
+      }
+    },
+    {
+      name: 'Channel 3',
       settings: {
         volume: 0,
         pan: 0,
