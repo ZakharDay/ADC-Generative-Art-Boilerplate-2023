@@ -620,17 +620,23 @@ export default class Container extends Component {
       <>
         <div className="BlasterControl">
           <div className="ControlPanelHeader">Blaster Control</div>
+
+          <div className="RackHeader">Instrument Rack</div>
           <div className="InstrumentsRack">{instrumentElements}</div>
+
+          <div className="RackHeader">Effect Rack</div>
           <div className="EffectsRack">{chainElements}</div>
         </div>
 
         <div className="SpacesControl">
           <div className="ControlPanelHeader">Space Control</div>
+          <div className="RackHeader">Bus Rack</div>
           <div className="BusRack">{busElements}</div>
         </div>
 
         <div className="MixControl">
           <div className="ControlPanelHeader">Mix Control</div>
+          <div className="RackHeader">Channel Rack</div>
           <div className="ChannelRack">{channelElements}</div>
         </div>
       </>
