@@ -5,7 +5,6 @@ import { generateHash } from './utilities'
 
 import SC_Button from './components/SC_Button'
 import InstrumentColumn from './components/InstrumentColumn'
-// import PresetButtonSet from './components/PresetButtonSet'
 
 const nodes = {}
 const connections = []
@@ -47,9 +46,6 @@ export default class Container extends Component {
     })
   }
 
-  // Сначала инитим каналы, так как это всегда
-  // последняя нода в цепи
-
   initChannels = () => {
     const channels = []
 
@@ -63,9 +59,6 @@ export default class Container extends Component {
 
     return channels
   }
-
-  // Далее нужно собрать басы, так как они
-  // подключаются в каналы
 
   initBusses = (channels) => {
     const busses = []
@@ -106,10 +99,6 @@ export default class Container extends Component {
     return busses
   }
 
-  // Далее нужно собрать цепочки эффектов,
-  // так как они подключаются в каналы и басы,
-  // а в них следом подключаются инструменты
-
   initChains = (busses) => {
     const chains = []
 
@@ -149,8 +138,6 @@ export default class Container extends Component {
     return chains
   }
 
-  // Далее собираем инструменты
-
   initInstruments = (chains) => {
     const instruments = []
 
@@ -181,8 +168,6 @@ export default class Container extends Component {
     return instruments
   }
 
-  // К инструментам добавляем лупы
-
   initLoops = (instruments) => {
     instruments.forEach((instrument, i) => {
       const { id, settings, sequences } = instrument
@@ -193,8 +178,6 @@ export default class Container extends Component {
       instrument.loopNodeId = loopNodeId
     })
   }
-
-  // Здесь создаются аудио-ноды разных типов
 
   createToneNode = (type, id, settings) => {
     let node
@@ -291,10 +274,6 @@ export default class Container extends Component {
     return loopNode
   }
 
-  // И самое главное — соединение нод между собой.
-  // В функциях выше наполняется список connections,
-  // а здесь мы по нему идём и создаём подключения
-
   connectNodes = () => {
     return new Promise((resolve, reject) => {
       connections.forEach((connection, i) => {
@@ -364,9 +343,6 @@ export default class Container extends Component {
       resolve()
     })
   }
-
-  // Здесь описан алгоритм инициализации,
-  // который построен на промисах
 
   handleStartButtonClick = () => {
     this.initDAW()
@@ -598,9 +574,6 @@ export default class Container extends Component {
       node.add(step)
     })
   }
-
-  // А это стандартные вещи,
-  // которые нет необходимости объяснять
 
   renderStartButton = () => {
     return (
