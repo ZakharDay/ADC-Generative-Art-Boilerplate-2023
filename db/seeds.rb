@@ -58,6 +58,9 @@
   },
   {
     name: 'ADC Tuneblaster 2023 v1.0: UI'
+  },
+  {
+    name: 'ADC Tuneblaster 2023 v1.1: Channel volume slider'
   }
 ]
 
