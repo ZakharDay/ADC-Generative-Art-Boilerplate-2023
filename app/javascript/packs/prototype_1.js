@@ -1,4 +1,4 @@
-import { getRandomArbitrary } from '../prototypes/prototype_1/utilities'
+import { getRandomArbitrary } from '../prototypes/utilities'
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Test ', getRandomArbitrary(0, 1))

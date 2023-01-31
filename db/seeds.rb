@@ -61,7 +61,34 @@
   },
   {
     name: 'ADC Tuneblaster 2023 v1.1: Channel volume slider'
+  },
+  {
+    name: 'Simple circle generator'
+  },
+  {
+    name: 'Using images'
+  },
+  {
+    name: 'More images, improved data structure'
+  },
+  {
+    name: 'The Store concept'
+  },
+  {
+    name: 'Using Promise'
+  },
+  {
+    name: 'Using Store with Promise'
+  },
+  {
+    name: 'Cascading Promises'
+  },
+  {
+    name: 'Using Promise.all'
   }
+  # {
+    # name: 'First algorythmic design'
+  # }
 ]
 
 def seed

@@ -1,7 +1,7 @@
 import * as Tone from 'tone'
 import React, { Component } from 'react'
 
-import { generateHash } from './utilities'
+import { generateHash } from '../utilities'
 
 import SC_Button from './components/SC_Button'
 
