@@ -88,6 +88,12 @@
   },
   {
     name: 'First algorythmic design'
+  },
+  {
+    name: 'First Canvas'
+  },
+  {
+    name: 'Canvas Basics'
   }
 ]
 
