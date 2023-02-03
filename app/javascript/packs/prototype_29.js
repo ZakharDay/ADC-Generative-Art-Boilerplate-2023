@@ -40,34 +40,35 @@ Number.prototype.times = function (cb) {
 const sides = Object.keys(model.largeCircles.sides.vSides)
 
 function generateLargeCircles() {
+  console.log('generateLargeCircles')
+
   return new Promise((resolve, reject) => {
     const promises = []
 
-    console.log('SIDES', sides)
-
     // prettier-ignore
-    sides.length.times(function (i) {
-      console.log(i)
-    })
-
-    // sides.forEach((side, i) => {
-    //   const promise = generateLargeCircle(side)
-    //   promises.push(promise)
+    // sides.length.times((i) => {
+    //   console.log(i)
     // })
 
-    console.log('PROMISES', promises)
+    sides.forEach((key, i) => {
+      const circleParams = model.largeCircles.sides.vSides[key]
+      const promise = generateLargeCircle(circleParams)
+      promises.push(promise)
+    })
 
     Promise.all(promises).then(resolve)
   })
 }
 
-function generateLargeCircle(side) {
+function generateLargeCircle(circleParams) {
+  console.log('generateLargeCircle')
+
   return new Promise((resolve, reject) => {
     const largeCircleStore = getLargeCircleStore()
-    largeCircleStore.push(side)
+    largeCircleStore.push(circleParams)
     setLargeCircleStore(largeCircleStore)
 
-    resolve(sides)
+    resolve()
   })
 }
 

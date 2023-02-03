@@ -1,0 +1,124 @@
+#prototype_30 {
+  position: relative;
+  width: 1080px;
+  max-width: 1080px;
+  min-width: 1080px;
+  height: 1920px;
+  margin: auto;
+  overflow: hidden;
+
+  &.black {
+    background: black;
+
+    .largeCircle {
+      border-color: white;
+    }
+
+    .text {
+      color: white;
+
+      &::before {
+        background-image: image-url('deepface-green-black.png');
+      }
+    }
+  }
+
+  &.white {
+    background: white;
+    border: 1px solid black;
+
+    .largeCircle {
+      border-color: black;
+    }
+
+    .text {
+      &::before {
+        background-image: image-url('deepface-black.png');
+      }
+    }
+  }
+
+  &.green {
+    background: #79ff39;
+
+    .largeCircle {
+      border-color: black;
+    }
+
+    .text {
+      &::before {
+        background-image: image-url('deepface-black.png');
+      }
+    }
+  }
+
+  * {
+    position: absolute;
+  }
+
+  .largeCircle {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+  }
+
+  .textWrapper {
+    display: flex;
+    width: 80%;
+    height: 60%;
+    left: 10%;
+    top: 20%;
+
+    &.top {
+      align-items: flex-start;
+    }
+
+    &.center {
+      align-items: center;
+    }
+
+    &.bottom {
+      align-items: flex-end;
+    }
+
+    .text {
+      width: 100%;
+      font-family: ADC;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 60px;
+      line-height: 140%;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        right: 74px;
+        width: 128px;
+        height: 128px;
+        background-size: cover;
+        transform: rotate(-12deg);
+      }
+    }
+  }
+}
+
+// &.deepface-green-white {
+//   background-image: image-url('deepface-green-white.png');
+// }
+//
+// &.deepface-green-black {
+//   background-image: image-url('deepface-green-black.png');
+// }
+//
+// &.deepface-dark-green-white {
+//   background-image: image-url('deepface-dark-green-white.png');
+// }
+//
+// &.deepface-dark-green-black {
+//   background-image: image-url('deepface-dark-green-black.png');
+// }
+//
+// &.deepface-black {
+//   background-image: image-url('deepface-black.png');
+// }

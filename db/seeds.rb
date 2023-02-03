@@ -85,10 +85,10 @@
   },
   {
     name: 'Using Promise.all'
+  },
+  {
+    name: 'First algorythmic design'
   }
-  # {
-    # name: 'First algorythmic design'
-  # }
 ]
 
 def seed
