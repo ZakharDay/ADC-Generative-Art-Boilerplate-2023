@@ -99,7 +99,10 @@
     name: 'Separated Data Layer'
   },
   {
-    name: '...'
+    name: 'P5 With UI'
+  },
+  {
+    name: 'Previous P5 Sketch on HTML'
   }
 ]
 
