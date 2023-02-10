@@ -94,6 +94,12 @@
   },
   {
     name: 'Canvas Basics'
+  },
+  {
+    name: 'Separated Data Layer'
+  },
+  {
+    name: '...'
   }
 ]
 

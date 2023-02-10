@@ -1,0 +1,43 @@
+body.prototype_body_34 {
+  .wrapper {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: 'PT Root UI', Helvetica, Arial, sans-serif;
+
+    .toggleSwitch,
+    .resetButton {
+      height: 40px;
+      line-height: 40px;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: white;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .toggleSwitch {
+      margin-right: 20px;
+
+      &.active {
+        background-color: var(--acid-green);
+      }
+    }
+
+    .resetButton {
+    }
+  }
+}
+
+#prototype_34 {
+  display: flex;
+  width: 100%;
+
+  canvas {
+    margin: auto;
+  }
+}
