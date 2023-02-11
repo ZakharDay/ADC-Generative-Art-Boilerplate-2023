@@ -1,4 +1,3 @@
-import { REGEXP_ABSOLUTE_RESOURCE_PATH } from 'webpack/lib/ModuleFilenameHelpers'
 import { getRandomArbitrary } from '../prototypes/utilities'
 
 const frameRate = 30
@@ -43,11 +42,11 @@ function addRectangle() {
   if (colorSwitch) {
     rectangle.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
   } else {
-    rectangle.style.backgroundColor = `rgb(${r}, ${r}, ${r})`
-    // let hC = getRandomArbitrary(0, 360)
-    // let sC = getRandomArbitrary(0, 100)
-    // let lC = getRandomArbitrary(0, 100)
-    // rectangle.style.backgroundColor = `hsl(${hC}deg, ${sC}%, ${lC}%)`
+    // rectangle.style.backgroundColor = `rgb(${r}, ${r}, ${r})`
+    let hC = getRandomArbitrary(0, 360)
+    let sC = getRandomArbitrary(0, 100)
+    let lC = getRandomArbitrary(0, 100)
+    rectangle.style.backgroundColor = `hsl(${hC}, ${sC}, ${lC})`
   }
 
   container.appendChild(rectangle)
