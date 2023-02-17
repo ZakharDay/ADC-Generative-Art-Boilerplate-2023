@@ -103,6 +103,9 @@
   },
   {
     name: 'Previous P5 Sketch on HTML'
+  },
+  {
+    name: 'Hue Range Slider'
   }
 ]
 
