@@ -106,6 +106,21 @@
   },
   {
     name: 'Hue Range Slider'
+  },
+  {
+    name: 'Tiling 1'
+  },
+  {
+    name: 'Tiling 2'
+  },
+  {
+    name: 'Tiles With UI'
+  },
+  {
+    name: 'Circles'
+  },
+  {
+    name: 'Displacement'
   }
 ]
 
