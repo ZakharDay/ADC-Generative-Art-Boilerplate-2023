@@ -121,6 +121,12 @@
   },
   {
     name: 'Displacement'
+  },
+  {
+    name: 'Displacement with UI on React'
+  },
+  {
+    name: 'Images on canvas'
   }
 ]
 
