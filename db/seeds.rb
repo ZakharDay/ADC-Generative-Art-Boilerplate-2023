@@ -126,7 +126,13 @@
     name: 'Displacement with UI on React'
   },
   {
+    name: 'React UI + P5 Sketch + Tone.js Sound (fast)'
+  },
+  {
     name: 'Images on canvas'
+  },
+  {
+    name: 'Composite image html + canvas save'
   }
 ]
 

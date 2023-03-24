@@ -1,5 +1,5 @@
 import p5 from 'p5'
-import { getRandomArbitrary } from '../prototypes/utilities'
+import { getRandomArbitrary, generateHash } from '../prototypes/utilities'
 
 const canvasSize = {
   width: 0,
@@ -18,10 +18,12 @@ let r = 0
 let g = 0
 let b = 0
 
+let canvas
+let p5instance
+
 function sketch(p) {
   p.setup = () => {
-    const canvas = p.createCanvas(canvasSize.width, canvasSize.height)
-    canvas.parent('prototype_34')
+    canvas = p.createCanvas(canvasSize.width, canvasSize.height)
     p.frameRate(30)
     p.background(0)
   }
@@ -34,6 +36,7 @@ function sketch(p) {
     y = getRandomArbitrary(0, canvasSize.height - h)
 
     if (clearCanvas) {
+      // p.clear()
       p.background(0)
       clearCanvas = false
     }
@@ -74,15 +77,45 @@ function renderUI() {
     clearCanvas = true
   })
 
+  const saveButton = document.createElement('div')
+  saveButton.classList.add('saveButton')
+  saveButton.innerText = 'Save'
+
+  saveButton.addEventListener('click', () => {
+    downloadImage()
+  })
+
   wrapper.appendChild(toggleSwitch)
   wrapper.appendChild(resetButton)
+  wrapper.appendChild(saveButton)
   document.body.appendChild(wrapper)
+}
+
+function downloadImage() {
+  // //
+  // // With P5
+  // //
+
+  p5instance.saveCanvas(canvas, `Prototype-34-${generateHash()}`, 'png')
+
+  // //
+  // // Without P5
+  // //
+
+  // const canvasElement = document.getElementById('defaultCanvas0')
+  // const imageData = canvasElement.toDataURL('image/png')
+
+  // const link = document.createElement('a')
+  // link.download = `Prototype-34-${generateHash()}.png`
+  // link.href = imageData
+  // link.click()
+  // link.remove()
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   canvasSize.width = window.innerWidth
   canvasSize.height = window.innerHeight
 
-  new p5(sketch)
+  p5instance = new p5(sketch)
   renderUI()
 })

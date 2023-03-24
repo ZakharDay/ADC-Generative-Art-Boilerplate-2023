@@ -1,0 +1,39 @@
+#prototype_43 {
+  display: flex;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+
+  .Container {
+    display: flex;
+    margin: auto;
+
+    .interface {
+      width: 200px;
+      padding: 40px;
+    }
+
+    .SC_ToggleButton {
+      margin: 10px 0;
+      padding: 8px 10px;
+      font-size: 14px;
+      text-align: center;
+      text-transform: capitalize;
+      background-color: var(--light-grey);
+      color: var(--black);
+      cursor: pointer;
+      user-select: none;
+
+      &:hover:not(.active) {
+        background-color: var(--grey);
+      }
+
+      &.active {
+        font-weight: 800;
+        color: var(--black);
+        background-color: var(--dark-green);
+        cursor: default;
+      }
+    }
+  }
+}

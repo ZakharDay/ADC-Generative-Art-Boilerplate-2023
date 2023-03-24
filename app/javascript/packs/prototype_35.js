@@ -1,4 +1,5 @@
-import { getRandomArbitrary } from '../prototypes/utilities'
+import html2canvas from 'html2canvas'
+import { getRandomArbitrary, generateHash } from '../prototypes/utilities'
 
 const frameRate = 30
 
@@ -42,11 +43,11 @@ function addRectangle() {
   if (colorSwitch) {
     rectangle.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
   } else {
-    // rectangle.style.backgroundColor = `rgb(${r}, ${r}, ${r})`
-    let hC = getRandomArbitrary(0, 360)
-    let sC = getRandomArbitrary(0, 100)
-    let lC = getRandomArbitrary(0, 100)
-    rectangle.style.backgroundColor = `hsl(${hC}, ${sC}, ${lC})`
+    rectangle.style.backgroundColor = `rgb(${r}, ${r}, ${r})`
+    // let hC = getRandomArbitrary(0, 360)
+    // let sC = getRandomArbitrary(0, 100)
+    // let lC = getRandomArbitrary(0, 100)
+    // rectangle.style.backgroundColor = `hsl(${hC}, ${sC}, ${lC})`
   }
 
   container.appendChild(rectangle)
@@ -77,9 +78,45 @@ function renderUI() {
     clearCanvas()
   })
 
+  const saveButton = document.createElement('div')
+  saveButton.classList.add('saveButton')
+  saveButton.innerText = 'Save'
+
+  saveButton.addEventListener('click', () => {
+    generateImage().then(downloadImage)
+  })
+
   wrapper.appendChild(toggleSwitch)
   wrapper.appendChild(resetButton)
+  wrapper.appendChild(saveButton)
   document.body.appendChild(wrapper)
+}
+
+function generateImage() {
+  return new Promise((resolve, reject) => {
+    const container = document.getElementById('prototype_35')
+
+    html2canvas(container).then((canvas) => {
+      canvas.style.position = 'absolute'
+      canvas.style.left = '-99999px'
+      document.body.appendChild(canvas)
+
+      resolve()
+    })
+  })
+}
+
+function downloadImage() {
+  const canvas = document.getElementsByTagName('canvas')[0]
+  const imageData = canvas.toDataURL('image/png')
+
+  const link = document.createElement('a')
+  link.download = `Prototype-35-${generateHash()}.png`
+  link.href = imageData
+  link.click()
+  link.remove()
+
+  canvas.remove()
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -10,7 +10,8 @@ body.prototype_body_34 {
     font-family: 'PT Root UI', Helvetica, Arial, sans-serif;
 
     .toggleSwitch,
-    .resetButton {
+    .resetButton,
+    .saveButton {
       height: 40px;
       line-height: 40px;
       padding-left: 20px;
@@ -20,15 +21,16 @@ body.prototype_body_34 {
       text-transform: uppercase;
     }
 
+    .saveButton {
+      margin-left: 20px;
+    }
+
     .toggleSwitch {
       margin-right: 20px;
 
       &.active {
         background-color: var(--acid-green);
       }
-    }
-
-    .resetButton {
     }
   }
 }

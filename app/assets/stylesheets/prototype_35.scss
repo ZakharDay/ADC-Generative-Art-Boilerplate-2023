@@ -10,7 +10,8 @@ body.prototype_body_35 {
     font-family: 'PT Root UI', Helvetica, Arial, sans-serif;
 
     .toggleSwitch,
-    .resetButton {
+    .resetButton,
+    .saveButton {
       height: 40px;
       line-height: 40px;
       padding-left: 20px;
@@ -18,6 +19,10 @@ body.prototype_body_35 {
       background-color: white;
       cursor: pointer;
       text-transform: uppercase;
+    }
+
+    .saveButton {
+      margin-left: 20px;
     }
 
     .toggleSwitch {
