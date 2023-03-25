@@ -50,112 +50,9 @@ export default class Container extends Component {
     this.props.initSketch('sketch')
   }
 
-  handleMelodyChangeRandom = () => {
-    const { melodyChangeRandom } = this.state
-
-    this.setState({
-      melodyChangeRandom: !melodyChangeRandom
-    })
-  }
-
-  handleMelodySoundPresetChange = (property, value) => {
-    const { melodySettings } = this.state
-    const preset = melodySettings.presets[value]
-
-    const instrument = melodySynth
-    const chorus = melodyChorus
-    const distortion = melodyDistortion
-    const pingPongDelay = melodyPingPongDelay
-    const bitCrusher = melodyBitCrusher
-    const settings = melodySettings
-
-    const { oscillator, envelope } = preset.synth
-
-    instrument.oscillator.type = oscillator.type
-    settings.synth.oscillator.type = oscillator.type
-
-    instrument.envelope.attack = envelope.attack
-    settings.synth.envelope.attack = envelope.attack
-
-    instrument.envelope.decay = envelope.decay
-    settings.synth.envelope.decay = envelope.decay
-
-    instrument.envelope.sustain = envelope.sustain
-    settings.synth.envelope.sustain = envelope.sustain
-
-    instrument.envelope.release = envelope.release
-    settings.synth.envelope.release = envelope.release
-
-    chorus.wet.value = preset.chorus.wet
-    settings.chorus.wet = preset.chorus.wet
-
-    chorus.type = preset.chorus.type
-    settings.chorus.type = preset.chorus.type
-
-    chorus.frequency.value = preset.chorus.frequency
-    settings.chorus.frequency = preset.chorus.frequency
-
-    chorus.delayTime = preset.chorus.delayTime
-    settings.chorus.delayTime = preset.chorus.delayTime
-
-    chorus.depth = preset.chorus.depth
-    settings.chorus.depth = preset.chorus.depth
-
-    chorus.spread = preset.chorus.spread
-    settings.chorus.spread = preset.chorus.spread
-
-    distortion.wet.value = preset.distortion.wet
-    settings.distortion.wet = preset.distortion.wet
-
-    distortion.distortion = preset.distortion.distortion
-    settings.distortion.distortion = preset.distortion.distortion
-
-    distortion.oversample = preset.distortion.oversample
-    settings.distortion.oversample = preset.distortion.oversample
-
-    bitCrusher.wet.value = preset.bitCrusher.wet
-    settings.bitCrusher.wet = preset.bitCrusher.wet
-
-    bitCrusher.bits = preset.bitCrusher.bits
-    settings.bitCrusher.bits = preset.bitCrusher.bits
-
-    pingPongDelay.wet.value = preset.pingPongDelay.wet
-    settings.pingPongDelay.wet = preset.pingPongDelay.wet
-
-    pingPongDelay.delayTime.value = preset.pingPongDelay.delayTime
-    settings.pingPongDelay.delayTime = preset.pingPongDelay.delayTime
-
-    pingPongDelay.maxDelayTime = preset.pingPongDelay.maxDelayTime
-    settings.pingPongDelay.maxDelayTime = preset.pingPongDelay.maxDelayTime
-
-    settings.presets.current = value
-
-    this.setState({
-      melodySettings
-    })
-  }
-
-  handleMelodySequenceChange = (property, value) => {
-    const { melodySettings } = this.state
-    const steps = melodySettings.sequence[value]
-
-    melodySettings.sequence.current = value
-    melodyPart.clear()
-
-    steps.forEach((step, i) => {
-      melodyPart.add(step)
-    })
-
-    this.setState({
-      melodySettings
-    })
-  }
-
   handleStart = () => {
     const { bassSettings, melodySettings, drumsSettings } = this.state
 
-    //
-    //
     bassSynth = new Tone.Synth(bassSettings.synth)
     bassChorus = new Tone.Chorus(bassSettings.chorus).start()
 
@@ -176,8 +73,7 @@ export default class Container extends Component {
 
     bassPart.loopEnd = bassSettings.sequence.duration
     bassPart.loop = bassSettings.sequence.loop
-    //
-    //
+
     melodySynth = new Tone.Synth(melodySettings.synth)
     melodyChorus = new Tone.Chorus(melodySettings.chorus).start()
     melodyDistortion = new Tone.Distortion(melodySettings.distortion)
@@ -205,8 +101,7 @@ export default class Container extends Component {
 
     melodyPart.loopEnd = melodySettings.sequence.duration
     melodyPart.loop = melodySettings.sequence.loop
-    //
-    //
+
     sampler = new Tone.Sampler({
       urls: {
         A1: '00001-Linn-9000-BassDrumrum1.mp3',
@@ -215,9 +110,6 @@ export default class Container extends Component {
         A4: '00064-Vermona-DRM1-MK3-Tom13.mp3'
       },
       baseUrl: 'http://localhost:3000/samples/'
-      // onload: () => {
-      //   sampler.triggerAttackRelease(['A1', 'A2', 'A1', 'A2'], 0.5)
-      // }
     })
 
     samplerChannel = new Tone.Channel(drumsSettings.channel).toDestination()

@@ -129,6 +129,9 @@
     name: 'React UI + P5 Sketch + Tone.js Sound (fast)'
   },
   {
+    name: 'React UI + P5 Sketch + Tone.js Sound (better abstraction)'
+  },
+  {
     name: 'Images on canvas'
   },
   {
