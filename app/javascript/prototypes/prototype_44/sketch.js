@@ -73,10 +73,9 @@ function sketch(p) {
   p.setup = () => {
     const canvas = p.createCanvas(canvasSize, canvasSize)
     canvas.parent(canvasContainerId)
-    p.frameRate(6)
+    p.frameRate(8)
     p.stroke(121, 255, 57)
     p.noFill()
-    // p.fill(141)
   }
 
   p.draw = () => {

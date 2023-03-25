@@ -136,6 +136,9 @@
   },
   {
     name: 'Composite image html + canvas save'
+  },
+  {
+    name: 'Polar Light'
   }
 ]
 
