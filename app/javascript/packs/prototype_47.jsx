@@ -5,26 +5,19 @@ import Container from '../prototypes/prototype_47/Container'
 import { initSketch } from '../prototypes/prototype_47/sketch'
 
 import {
-  getStoreShift,
-  setStoreShift,
-  getStoreEnthropy,
-  setStoreEnthropy,
-  getStoreEffect,
-  setStoreEffect
+  getStoreWaveAmplitude,
+  setStoreWaveAmplitude
 } from '../prototypes/prototype_47/store'
 
 const props = {
   sketchId: 'sketch',
-  shift: getStoreShift(),
-  enthropy: getStoreEnthropy(),
-  effect: getStoreEffect()
+  waveAmplitude: getStoreWaveAmplitude()
 }
 
 const actions = {
   initSketch,
-  setStoreShift,
-  setStoreEnthropy,
-  setStoreEffect
+  getStoreWaveAmplitude,
+  setStoreWaveAmplitude
 }
 
 document.addEventListener('DOMContentLoaded', () => {

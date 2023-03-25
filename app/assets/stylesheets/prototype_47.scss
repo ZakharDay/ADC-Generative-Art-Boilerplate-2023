@@ -50,5 +50,47 @@
         background-color: var(--dark-green);
       }
     }
+
+    .SC_Slider {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      h3 {
+        margin-bottom: 14px;
+        font-size: 16px;
+      }
+
+      input[type='range'] {
+        -webkit-appearance: none;
+        width: 100%;
+
+        &::-webkit-slider-runnable-track {
+          height: 4px;
+          background: var(--white);
+          border: none;
+        }
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          border: none;
+          height: 16px;
+          width: 16px;
+          border-radius: 50%;
+          background: var(--dark-green);
+          margin-top: -6px;
+          cursor: pointer;
+        }
+
+        &:focus {
+          outline: none;
+
+          &::-webkit-slider-runnable-track {
+            background: var(--white);
+          }
+        }
+      }
+    }
   }
 }

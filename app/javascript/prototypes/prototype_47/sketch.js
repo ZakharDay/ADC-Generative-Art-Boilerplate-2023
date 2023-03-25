@@ -1,9 +1,8 @@
 import p5 from 'p5'
 import { getRandomArbitrary } from '../utilities'
-// import { getStoreShift, getStoreEnthropy, getStoreEffect } from './store'
+import { getStoreWaveAmplitude } from './store'
 
 let canvasContainerId
-let waveAmplitude = 50
 
 let waveHue = 50
 let waveSaturation = 50
@@ -14,7 +13,7 @@ function sketch(p) {
     const canvas = p.createCanvas(700, 410)
     canvas.parent(canvasContainerId)
     p.colorMode(p.HSB, 100, 100, 100, 255)
-    p.frameRate(1)
+    p.frameRate(60)
   }
 
   p.draw = () => {
@@ -27,14 +26,15 @@ function sketch(p) {
       const x = i * waveSpacing
 
       const y =
-        p.height / 2 + p.sin(p.frameCount * 0.05 + i * 0.5) * waveAmplitude
+        p.height / 2 +
+        p.sin(p.frameCount * 0.05 + i * 0.5) * getStoreWaveAmplitude()
 
       p.fill(waveHue, waveSaturation, waveBrightness)
       p.noStroke()
       p.ellipse(x, y, p.random(20, 50), p.random(60, 150))
     }
 
-    p.drawingContext.filter = 'blur(40px)'
+    p.drawingContext.filter = 'blur(60px)'
   }
 }
 

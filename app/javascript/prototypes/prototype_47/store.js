@@ -1,36 +1,11 @@
-let shift = false
-let enthropy = false
-let effect = false
+let waveAmplitude = 50
 
-function getStoreShift() {
-  return shift
+function getStoreWaveAmplitude() {
+  return waveAmplitude
 }
 
-function setStoreShift(data) {
-  shift = data
+function setStoreWaveAmplitude(data) {
+  waveAmplitude = data
 }
 
-function getStoreEnthropy() {
-  return enthropy
-}
-
-function setStoreEnthropy(data) {
-  enthropy = data
-}
-
-function getStoreEffect() {
-  return effect
-}
-
-function setStoreEffect(data) {
-  effect = data
-}
-
-export {
-  getStoreShift,
-  setStoreShift,
-  getStoreEnthropy,
-  setStoreEnthropy,
-  getStoreEffect,
-  setStoreEffect
-}
+export { getStoreWaveAmplitude, setStoreWaveAmplitude }
