@@ -19,7 +19,8 @@ function sketch(p) {
 
     p.clear()
     p.background(0, 0, 0, 0)
-    p.fill(100)
+    p.drawingContext.filter = 'blur(20px)'
+    p.fill(0, 0, 255)
     p.rect(x, y, 50, 50)
   }
 }
