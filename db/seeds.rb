@@ -139,6 +139,18 @@
   },
   {
     name: 'Polar Light'
+  },
+  {
+    name: 'P5 Transitions 1 Linear Move: State Machine'
+  },
+  {
+    name: 'P5 Transitions 2 Linear Move: Time Control'
+  },
+  {
+    name: 'P5 Transitions 3 Linear Move: Infinity Move'
+  },
+  {
+    name: 'P5 Transitions 3 Linear Move: With Frequency'
   }
 ]
 
