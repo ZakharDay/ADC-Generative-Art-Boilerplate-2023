@@ -151,6 +151,18 @@
   },
   {
     name: 'P5 Transitions 3 Linear Move: With Frequency'
+  },
+  {
+    name: 'API 1: Binance Simple Version'
+  },
+  {
+    name: '?'
+  },
+  {
+    name: '42 Fullscreen'
+  },
+  {
+    name: '34 Fullscreen'
   }
 ]
 

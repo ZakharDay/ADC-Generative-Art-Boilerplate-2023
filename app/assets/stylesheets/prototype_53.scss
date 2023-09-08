@@ -1,0 +1,29 @@
+#prototype_53 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-family: 'PT Root UI', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+
+  #container {
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+
+    div {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  #button {
+    padding: 30px;
+    margin-top: 40px;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+}
